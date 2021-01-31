@@ -15,22 +15,6 @@ config = ConfigParser()
 config_file_name = "config.ini"
 zoom_state = False
 
-# if the config file doesn't exist then create it
-if not os.path.isfile(config_file_name):
-    create_config()
-
-read_config()
-
-# Flip zoom state
-zoom_state = not zoom_state
-
-if zoom_state:
-    enable_zoom()
-else:
-    disable_zoom()
-
-update_config()
-
 
 def disable_zoom():
     # Trigger the windows shortcut for disabling zoom
@@ -68,3 +52,20 @@ def update_config():
 
     with open(config_file_name, 'w') as f:
         config.write(f)
+
+
+# if the config file doesn't exist then create it
+if not os.path.isfile(config_file_name):
+    create_config()
+
+read_config()
+
+# Flip zoom state
+zoom_state = not zoom_state
+
+if zoom_state:
+    enable_zoom()
+else:
+    disable_zoom()
+
+update_config()
