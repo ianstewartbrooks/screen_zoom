@@ -18,7 +18,7 @@ class ScreenZoom(object):
         pag.hotkey('win', 'add')
 
     def create_config(self):
-        # config.read(config_file_name)
+        # Create a config file to save zoom state value
         self.config.add_section('main')
         self.config.set('main', 'zoom', str(self.zoom_state))
 
@@ -26,17 +26,21 @@ class ScreenZoom(object):
             self.config.write(f)
 
     def read_config(self):
+        # Read last zoom state from the config file
         self.config.read(self.config_file_name)
         self.zoom_state = self.config.getboolean("main", "zoom")
 
     def update_config(self):
-        # config.read(config_file_name)
+        # Update the config file with the latest zoom state value
         self.config.set('main', 'zoom', str(self.zoom_state))
 
         with open(self.config_file_name, 'w') as f:
             self.config.write(f)
 
     def change_zoom_state(self):
+        # Get the stored zoom state, if it exists, and then
+        # switch it eg False to True, True to False
+
         # if the config file doesn't exist then create it
         if not os.path.isfile(self.config_file_name):
             self.create_config()
@@ -52,4 +56,3 @@ class ScreenZoom(object):
             self.disable_zoom()
 
         self.update_config()
-
