@@ -9,11 +9,13 @@ class ScreenZoom(object):
         self._config_file_name = "config.ini"
         self._zoom_state = False
 
-    def _disable_zoom(self):
+    @staticmethod
+    def _disable_zoom():
         # Trigger the windows shortcut for disabling zoom
         pag.hotkey('win', 'esc')
 
-    def _enable_zoom(self):
+    @staticmethod
+    def _enable_zoom():
         # Trigger windows shortcut for launching zoom.
         pag.hotkey('win', 'add')
 
