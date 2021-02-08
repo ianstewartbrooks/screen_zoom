@@ -5,54 +5,54 @@ from configparser import ConfigParser
 
 class ScreenZoom(object):
     def __init__(self):
-        self.config = ConfigParser()
-        self.config_file_name = "config.ini"
-        self.zoom_state = False
+        self._config = ConfigParser()
+        self._config_file_name = "config.ini"
+        self._zoom_state = False
 
-    def disable_zoom(self):
+    def _disable_zoom(self):
         # Trigger the windows shortcut for disabling zoom
         pag.hotkey('win', 'esc')
 
-    def enable_zoom(self):
+    def _enable_zoom(self):
         # Trigger windows shortcut for launching zoom.
         pag.hotkey('win', 'add')
 
-    def create_config(self):
+    def _create_config(self):
         # Create a config file to save zoom state value
-        self.config.add_section('main')
-        self.config.set('main', 'zoom', str(self.zoom_state))
+        self._config.add_section('main')
+        self._config.set('main', 'zoom', str(self._zoom_state))
 
-        with open(self.config_file_name, 'w') as f:
-            self.config.write(f)
+        with open(self._config_file_name, 'w') as f:
+            self._config.write(f)
 
-    def read_config(self):
+    def _read_config(self):
         # Read last zoom state from the config file
-        self.config.read(self.config_file_name)
-        self.zoom_state = self.config.getboolean("main", "zoom")
+        self._config.read(self._config_file_name)
+        self._zoom_state = self._config.getboolean("main", "zoom")
 
-    def update_config(self):
+    def _update_config(self):
         # Update the config file with the latest zoom state value
-        self.config.set('main', 'zoom', str(self.zoom_state))
+        self._config.set('main', 'zoom', str(self._zoom_state))
 
-        with open(self.config_file_name, 'w') as f:
-            self.config.write(f)
+        with open(self._config_file_name, 'w') as f:
+            self._config.write(f)
 
     def change_zoom_state(self):
         # Get the stored zoom state, if it exists, and then
         # switch it eg False to True, True to False
 
         # if the config file doesn't exist then create it
-        if not os.path.isfile(self.config_file_name):
-            self.create_config()
+        if not os.path.isfile(self._config_file_name):
+            self._create_config()
 
-        self.read_config()
+        self._read_config()
 
         # Flip zoom state
-        self.zoom_state = not self.zoom_state
+        self._zoom_state = not self._zoom_state
 
-        if self.zoom_state:
-            self.enable_zoom()
+        if self._zoom_state:
+            self._enable_zoom()
         else:
-            self.disable_zoom()
+            self._disable_zoom()
 
-        self.update_config()
+        self._update_config()
